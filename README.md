@@ -2,12 +2,14 @@
 今天你打卡了没？
   
 脚本仅供学习交流，请勿用于其他用途。
+  
+另外脚本里细节写得不是很到位，意思到了就好。(跑
 # 安装环境
 python3
 ## browser.py
-pip install selenium
+`pip install selenium`
   
-pip install tkinter
+`pip install tkinter`
   
 安装火狐浏览器或者谷歌浏览器并且下载geckodriver放入浏览器目录下
 ## requsets.py
