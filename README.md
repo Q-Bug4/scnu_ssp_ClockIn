@@ -9,7 +9,7 @@
 python3
 jdk
 ## 安卓打卡
-安装.apk文件即可进行打卡  
+安装[apk](https://github.com/wumcpq/scnu_ssp_ClockIn/releases/download/android/scnu_ssp_clockIn.apk)文件即可进行打卡  
 在release中可以下载[idea工程源码](https://github.com/wumcpq/scnu_ssp_ClockIn/releases/download/android/idea.project.7z)  
 需要jsoup依赖  
 
