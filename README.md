@@ -42,14 +42,15 @@ password = 'password'      # 你的密码
 area = 'xx省'              # 你的省份
 location = 'xx市xx县'      # 详细位置
 ```
-## 安卓
-第一次使用填入数据打卡后会保存内容，以后无需输入数据即可打卡。
   
 # 使用
 ## python脚本
 初始化完成之后直接打开就可以愉快使用啦。  
 
 ## 安卓
+填入数据即可进行打卡。  
+第一次使用填入数据打卡后会保存内容，以后无需输入数据即可打卡。  
+此外，apk没有做屏幕适配，测试中小米8体验良好。  
 小米8实际使用效果图：  
 ![小米8效果图](https://github.com/wumcpq/scnu_ssp_ClockIn/raw/master/android/Snipaste_2020-05-10_18-12-27.jpg)
 
