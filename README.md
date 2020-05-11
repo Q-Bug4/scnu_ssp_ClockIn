@@ -6,8 +6,10 @@
 另外代码细节写得不是很到位，意思到了就好。(跑
 
 # 注意事项 必看！！！
+## 提前准备
 用于打卡的密码为[服务平台](https://ssp.scnu.edu.cn/)的密码。  
 使用前务必要确认自己可以用浏览器在[服务平台](https://ssp.scnu.edu.cn/)右上角本地登录成功。  
+
 ## 安卓打卡
 安装[apk文件](https://github.com/wumcpq/scnu_ssp_ClockIn/raw/master/android/app-release.apk)即可进行打卡  
 在release中可以下载idea工程源码
