@@ -3,14 +3,20 @@
 
 脚本仅供学习交流，请勿用于其他用途。
   
-另外脚本里细节写得不是很到位，意思到了就好。(跑
+另外代码细节写得不是很到位，意思到了就好。(跑
+
+# 注意事项 必看！！！
+用于打卡的密码为[服务平台](https://ssp.scnu.edu.cn/)的密码。  
+使用前务必要确认自己可以用浏览器在[服务平台](https://ssp.scnu.edu.cn/)右上角本地登录成功。  
+## 安卓打卡
+安装[apk文件](https://github.com/wumcpq/scnu_ssp_ClockIn/raw/master/android/app-release.apk)即可进行打卡  
+在release中可以下载idea工程源码
 
 # 安装环境
 python3
 jdk
-## 安卓打卡
-安装[apk](https://github.com/wumcpq/scnu_ssp_ClockIn/releases/download/android/scnu_ssp_clockIn.apk)文件即可进行打卡  
-在release中可以下载[idea工程源码](https://github.com/wumcpq/scnu_ssp_ClockIn/releases/download/android/idea.project.7z)  
+
+# 安卓
 需要jsoup依赖  
 
 ## browser.py
