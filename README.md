@@ -93,5 +93,7 @@ push_url = 'http://sc.ftqq.com/[YOUR_SCKEY].send'
 
 ## 定时执行
 把修改好的requests-push.py放到你的VPS或者树莓派里。然后用`crontab`设置定时任务。比如我设置为每天中午十二点自动执行：
-	0 12 * * * python3 PATH_TO_YOUR_requests-push.py >/dev/null 2>&1
+```
+0 12 * * * python3 PATH_TO_YOUR_requests-push.py >/dev/null 2>&1
+```
 需要注意的是，如果你的Linux系统的时区不是东8区的话，`crontab`执行脚本的时间会与你设想的时间不一样。
