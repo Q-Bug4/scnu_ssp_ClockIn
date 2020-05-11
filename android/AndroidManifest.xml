@@ -4,9 +4,9 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/myicon"
             android:label="今天你打卡了吗"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@drawable/myicon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">

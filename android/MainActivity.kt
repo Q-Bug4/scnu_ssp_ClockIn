@@ -98,14 +98,13 @@ class MainActivity : AppCompatActivity() {
                 ci.setArea(area)
                 ci.setLocation(location)
                 ci.setTem(tem)
-                ci.start()
-                print("kt 打卡:"+ci.getSuccess())
+                val mes = ci.start()
                 val dialog = AlertDialog.Builder(this).create()
                 if(ci.getSuccess()){
                     saveData(data)
                     dialog.setMessage("打卡成功！打卡额温为：$tem")
                 }else{
-                    dialog.setMessage("打卡失败！请检查账号密码或者打卡内容！")
+                    dialog.setMessage("打卡失败：$mes")
                 }
                 dialog.show()
                 Looper.loop()

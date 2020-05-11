@@ -1,6 +1,5 @@
 package com.example.test_apk;
 
-import kotlin.time.Clock;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
@@ -12,6 +11,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ClockIn {
+    final int MES_LOGIN = 1;
+    final int MES_MID = 2;
+    final int MES_SUBMIT = 3;
+    final int MES_KEYLOST = 4;
+    final int MES_SUCCESS = 5;
+
     String loginUrl;
     String submitUrl;
     String pageEncode;
@@ -50,6 +55,7 @@ public class ClockIn {
     private void showInfo(String info) {
         //TODO 使用弹窗进行提醒
         System.out.println(info);
+
     }
 
     /**
@@ -72,14 +78,15 @@ public class ClockIn {
         return res;
     }
 
-    public boolean clock() {
+    public int clock() {
+        int mes = -1;
         try {
+            mes = MES_LOGIN;
             String __EVENTVALIDATION;
             String __VIEWSTATE;
             Connection login_con = Jsoup.connect(loginUrl);
             login_con.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36");
             Response rs = login_con.execute();// 获取响应
-
             __VIEWSTATE = get__(rs.body(), "__VIEWSTATE");
             __EVENTVALIDATION = get__(rs.body(), "__EVENTVALIDATION");
 
@@ -93,16 +100,19 @@ public class ClockIn {
             // 设置cookie和post上面的map数据
             Response login = login_con.ignoreContentType(true).method(Method.POST)
                     .data(login_data).cookies(rs.cookies()).execute();
-
+            if (loginUrl.equals(login.url().toString()))
+                return mes;
+            mes = MES_MID;
             // 找key
             String key = "opt_rc_jkdk.aspx\\?key=[\\w\\d]+&fid=55";
             Pattern P_key = Pattern.compile(key);
             Matcher M_key = P_key.matcher(login.body());
             if (M_key.find()) {
                 key = M_key.group(0);
-
             } else {
                 showInfo("找不到key！");
+                mes = MES_KEYLOST;   //找不到key即为登录失败
+                return mes;
             }
             submitUrl += key;
 
@@ -117,7 +127,7 @@ public class ClockIn {
             temp_data.put("__VIEWSTATE", get__(temp.body(), "__VIEWSTATE"));
             Response submit = submit_con.ignoreContentType(true).method(Method.POST)
                     .data(temp_data).cookies(rs.cookies()).execute();
-
+            mes = MES_SUBMIT;
             // 开始打卡
             Map<String, String> clockin_data = new HashMap<>();
             clockin_data.put("ctl00$cph_right$e_area", area);
@@ -133,17 +143,29 @@ public class ClockIn {
             Connection final_con = Jsoup.connect(submitUrl);
             clockin = final_con.ignoreContentType(true).method(Method.POST)
                     .data(clockin_data).cookies(rs.cookies()).execute();
+            mes = MES_SUBMIT;
             success = clockin.body().contains("打卡成功");
-            System.out.println("打卡："+success);
-            return success;
+            if(success)
+                mes = MES_SUCCESS;
         } catch (Exception e) {
-            success = false;
-            return success;
+            return mes;
         }
+        return mes;
     }
 
-    public void start() {
-        clock();
+    public String start() {
+        int mes = clock();
+        if (mes == MES_SUCCESS)
+            return "打卡成功！";
+        else if (mes == MES_LOGIN)
+            return "登录失败！";
+        else if (mes == MES_MID)
+            return "转到打卡页面失败！";
+        else if(mes==MES_SUBMIT)
+            return "打卡内容有误！";
+        else if (mes == MES_KEYLOST)
+            return "找不到key！";
+        return "u cant see me";
     }
 
 
