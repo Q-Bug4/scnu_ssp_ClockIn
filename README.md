@@ -9,9 +9,9 @@
 ## 提前准备
 用于打卡的密码为[服务平台](https://ssp.scnu.edu.cn/)的密码。  
 使用前务必要确认自己可以用浏览器在[服务平台](https://ssp.scnu.edu.cn/)右上角本地登录成功。  
-不要统一登录！不要统一登录！不要统一登录！  
-本地登录！本地登录！本地登录！  
-不知道密码就找回密码！不知道密码就找回密码！不知道密码就找回密码！  
+**不要统一登录！不要统一登录！不要统一登录！**  
+**本地登录！本地登录！本地登录！**  
+**不知道密码就找回密码！不知道密码就找回密码！不知道密码就找回密码！**  
 ## 安卓打卡
 安装[apk文件](https://github.com/wumcpq/scnu_ssp_ClockIn/raw/master/android/app-release.apk)即可进行打卡  
 或者到[百度网盘提取码dggz](https://pan.baidu.com/s/1nR0FXhVCE8stEVZ_DT5zxg)进行下载
