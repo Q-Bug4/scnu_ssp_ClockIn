@@ -7,8 +7,8 @@ import re
 tem = 37 - random.randint(5, 10) / 10  # 正常温度：36° - 36.5°
 user = '2018xxxxx'         # 你的学号
 password = 'password'      # 你的密码
-area = 'xx省'              # 你的省份
-location = 'xx市xx县'      # 详细位置
+# area = 'xx省'              # 你的省份
+location = 'xx省xx市xx县'      # 详细位置(xx省xx市xx区/县)
     
 # 利用Server酱(http://sc.ftqq.com/3.version)将打卡结果推送到微信
 # [YOUR_SCKEY]需要替换为你自己的SCKEY
@@ -40,13 +40,13 @@ def clockin():
             '__EVENTVALIDATION': '',
 
             # 打卡表单内容
-            'ctl00$cph_right$e_area': area,
+            # 'ctl00$cph_right$e_area': area,
             'ctl00$cph_right$e_location': location,
-            'ctl00$cph_right$e_observation': '无下列情况',
+            # 'ctl00$cph_right$e_observation': '无下列情况',
             'ctl00$cph_right$e_health$0': '无不适',
             'ctl00$cph_right$e_temp': str(tem),
             'ctl00$cph_right$e_describe': '',
-            'ctl00$cph_right$e_survey01': '疫情期间未出国出境',
+            # 'ctl00$cph_right$e_survey01': '疫情期间未出国出境',
             'ctl00$cph_right$e_submit': '提交保存'
         }
 
@@ -94,19 +94,19 @@ def clockin():
 
         clock_html = s.get(clock_site).text  # 用于中间Requests Data查找请求参数
 
-        # 中间Requests Data
-        temp_data = {
-            'ctl00$cph_right$e_ok': 'on',
-            'ctl00$cph_right$ok_submit': '开始填报',
-            # '__VIEWSTATEGENERATOR':'DC47EEF4',
+        # # 中间Requests Data
+        # temp_data = {
+        #     'ctl00$cph_right$e_ok': 'on',
+        #     'ctl00$cph_right$ok_submit': '开始填报',
+        #     # '__VIEWSTATEGENERATOR':'DC47EEF4',
 
-            '__VIEWSTATE': get__('__VIEWSTATE', clock_html),
-            '__EVENTVALIDATION': get__('__EVENTVALIDATION', clock_html)
-        }
+        #     '__VIEWSTATE': get__('__VIEWSTATE', clock_html),
+        #     '__EVENTVALIDATION': get__('__EVENTVALIDATION', clock_html)
+        # }
 
-        # 进入打卡页面
-        res = s.post(url=clock_site, data=temp_data, headers=clock_head)
-        clock_html = res.text
+        # # 进入打卡页面
+        # res = s.post(url=clock_site, data=temp_data, headers=clock_head)
+        # clock_html = res.text
 
         # 更新打卡Data
         data['__VIEWSTATE'] = get__('__VIEWSTATE', clock_html)
