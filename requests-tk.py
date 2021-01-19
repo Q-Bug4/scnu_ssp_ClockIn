@@ -100,7 +100,7 @@ try:
     # 提交打卡内容
     res2 = s.post(url=clock_site, data=data, headers=clock_head)
 
-    if res2.text.find(r"alert('打卡成功')") == -1:
+    if res2.text.find("alert('打卡成功')") == -1:
         tk.showwarning('打卡失败！','请查看打卡内容是否变更！')
     else:
         tk.showinfo('打卡成功', '温度为：' + str(tem))

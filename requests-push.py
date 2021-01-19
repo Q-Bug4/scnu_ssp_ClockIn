@@ -97,7 +97,7 @@ def clockin():
         # 提交打卡内容
         res2 = s.post(url=clock_site, data=data, headers=clock_head)
 
-        if res2.text.find('打卡成功') == -1:
+        if res2.text.find("alert('打卡成功')") == -1:
             return ('打卡失败', '请查看打卡内容是否变更')
         
         return ('打卡成功','今天打卡额温为' + str(tem) + '°C')
