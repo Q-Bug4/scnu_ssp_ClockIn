@@ -3,6 +3,7 @@ import random
 import requests
 import re
 import tkinter.messagebox as tk
+from requests_toolbelt import MultipartEncoder
 
 login_html = ''
 temp_html = ''
@@ -12,8 +13,13 @@ clock_html = ''
 tem = 37 - random.randint(5, 10) / 10  # 正常温度：36° - 36.5°
 user = '2018xxxxx'         # 你的学号
 password = 'password'      # 你的密码
-# area = 'xx省'              # 你的省份
 location = 'xx省xx市xx县'      # 详细位置(xx省xx市xx区/县)
+travel = 'xx省xx市'
+# [可选]健康码、行程卡
+health_code = None
+travel_code = None
+# health_code = open('xxx', 'rb')
+# travel_code = open('xxx', 'rb')
 
 try:
 
@@ -30,24 +36,6 @@ try:
         start = res.span()[0] + len(text)
         end = res.span()[1] - 1
         return html[start:end]  # 截取参数内容返回
-
-
-    # 打卡提交数据
-    data = {
-        # 两个标志是必要的
-        '__VIEWSTATE': '',
-        '__EVENTVALIDATION': '',
-
-        # 打卡表单内容
-        # 'ctl00$cph_right$e_area': area,
-        'ctl00$cph_right$e_location': location,
-        # 'ctl00$cph_right$e_observation': '无下列情况',
-        'ctl00$cph_right$e_health$0': '无不适',
-        'ctl00$cph_right$e_temp': str(tem),
-        'ctl00$cph_right$e_describe': '',
-        # 'ctl00$cph_right$e_survey01': '疫情期间未出国出境',
-        'ctl00$cph_right$e_submit': '提交保存'
-    }
 
     # 登录Requests Header
     login_head = {
@@ -86,35 +74,33 @@ try:
     # 因为打卡页面上参数key每次登录都会变化
     # 找到key就可以定位到打卡页面
     temp_html = res.text
-    start = temp_html.find('opt_rc_jkdk.aspx?')
+    start = temp_html.find('opt_yq_jkdk.aspx?')
     end = temp_html.find('>健康打卡') - 1
     clock_site = 'https://ssp.scnu.edu.cn/' + temp_html[start:end]  # 截取key获得打卡网址
     clock_head['Referer'] = clock_site  # 用打卡网址更新 Requests Header 的参数
 
     clock_html = s.get(clock_site).text  # 用于中间Requests Data查找请求参数
 
-    # # 中间Requests Data
-    # temp_data = {
-    #     'ctl00$cph_right$e_ok': 'on',
-    #     'ctl00$cph_right$ok_submit': '开始填报',
-    #     # '__VIEWSTATEGENERATOR':'DC47EEF4',
-
-    #     '__VIEWSTATE': get__('__VIEWSTATE', clock_html),
-    #     '__EVENTVALIDATION': get__('__EVENTVALIDATION', clock_html)
-    # }
-
-    # # 进入打卡页面
-    # res = s.post(url=clock_site, data=temp_data, headers=clock_head)
-    # clock_html = res.text
-
-    # 更新打卡Data
-    data['__VIEWSTATE'] = get__('__VIEWSTATE', clock_html)
-    data['__EVENTVALIDATION'] = get__('__EVENTVALIDATION', clock_html)
+    data = MultipartEncoder(
+        fields={
+            '__VIEWSTATE': (None, get__('__VIEWSTATE', clock_html)),
+            '__EVENTVALIDATION': (None, get__('__EVENTVALIDATION', clock_html)),
+            'ctl00$cph_right$e_location': (None, location),
+            'ctl00$cph_right$e_health$0': (None, '无不适'),
+            'ctl00$cph_right$e_temp': (None, str(tem)),
+            'ctl00$cph_right$e_travel': (None, travel),
+            'ctl00$cph_right$e_describe': (None, ''),
+            'ctl00$cph_right$e_submit': (None, '提交保存'),
+            'ctl00$cph_right$e_annex':(health_code.name if health_code else '', health_code, 'application/octet-stream'),
+            'ctl00$cph_right$e_annex2':(travel_code.name if travel_code else '', travel_code, 'application/octet-stream')
+        }
+    )
+    clock_head['Content-Type']=data.content_type
 
     # 提交打卡内容
     res2 = s.post(url=clock_site, data=data, headers=clock_head)
 
-    if res2.text.find('打卡成功') == -1:
+    if res2.text.find(r"alert('打卡成功')") == -1:
         tk.showwarning('打卡失败！','请查看打卡内容是否变更！')
     else:
         tk.showinfo('打卡成功', '温度为：' + str(tem))
