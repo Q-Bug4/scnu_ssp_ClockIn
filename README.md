@@ -37,6 +37,8 @@ jdk
 
 `pip install requests`
 
+`pip install requests_toolbelt`
+
 # 初始化
 ## browser.py
 打开browser.py并修改如下内容，即打卡内容。
@@ -51,8 +53,12 @@ location = 'xx市xx区/县'    # 地区
 ```python
 user = '2018xxxxx'         # 你的学号
 password = 'password'      # 你的密码
-area = 'xx省'              # 你的省份
-location = 'xx市xx县'      # 详细位置
+location = 'xx省xx市xx县'      # 详细位置
+travel = 'xx省xx市'
+# [可选]
+# 健康码、形成卡
+# health_code = open('xxxx', 'rb')
+# travel_code = open('xxxx', 'rb')  
 ```
 
 # 使用
@@ -74,17 +80,20 @@ location = 'xx市xx县'      # 详细位置
 
 ## 需要的准备
 * 一台有`python3`环境的VPS或者树莓派（或者其他一直开机运行的Linux主机）
-* 依赖关系：`re`和`requests`
+* 依赖关系：`re`、`requests`和`requests_toolbelt`
 * 了解`crontab`和`vi/vim`的基本使用方法
 
 ## 需要修改的信息
 修改requests-push.py里的如下信息
 ```python
-username = '2018213xxxx'    # 学号
-password = '你的密码'       # 密码
-p = 'xx省'                  # 省份
-location = 'xx市xx区/县'    # 地区
-
+user = '2018xxxxx'         # 你的学号
+password = 'password'      # 你的密码
+location = 'xx省xx市xx县'      # 详细位置
+travel = 'xx省xx市'
+# [可选]
+# 健康码、形成卡
+# health_code = open('xxxx', 'rb')
+# travel_code = open('xxxx', 'rb')  
 # 利用Server酱(http://sc.ftqq.com/3.version)将打卡结果推送到微信
 # [YOUR_SCKEY]需要替换为你自己的SCKEY
 push_url = 'http://sc.ftqq.com/[YOUR_SCKEY].send'
