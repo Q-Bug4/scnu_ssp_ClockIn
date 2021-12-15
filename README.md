@@ -107,13 +107,13 @@ push_url = 'http://sc.ftqq.com/[YOUR_SCKEY].send'
 ```
 需要注意的是，如果你的Linux系统的时区不是东8区的话，`crontab`执行脚本的时间会与你设想的时间不一样。
 
-## Docker定时执行
-加入了多人打卡的功能，可以给自己的舍友一起打卡。
-Docker文件夹内存放了修改后执行程序以及Dockerfile，可以自行build，也可以使用我build好的docker image：
+# Docker定时执行
+加入了多人打卡的功能，可以给自己的舍友一起打卡(逃)。<br>
+Docker文件夹内存放了修改后执行程序以及Dockerfile，可以自行build，也可以使用我build好的docker image：<br>
 <a href="https://hub.docker.com/r/hanriri/scnu-clock" target="_blank">hanriri/scnu_clock</a><br>
-### 安装
+## 安装
 没什么参数，注意映射container内的`/mnt`目录到host上能找到的目录。<br>
-### 配置
+## 配置
 进入host上你刚才设置的目录，也就是容器内的`/mnt`目录，新建一个`stu_id.txt`文本文件，写入：
 ```bash
 <学号> <密码> <地址>
