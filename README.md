@@ -12,10 +12,6 @@
 **不要统一登录！不要统一登录！不要统一登录！**  
 **本地登录！本地登录！本地登录！**  
 **不知道密码就找回密码！不知道密码就找回密码！不知道密码就找回密码！**  
-## 安卓打卡
-安装[apk文件](https://github.com/wumcpq/scnu_ssp_ClockIn/raw/master/android/app-release.apk)即可进行打卡  
-或者到[百度网盘提取码dggz](https://pan.baidu.com/s/1nR0FXhVCE8stEVZ_DT5zxg)进行下载
-在release中可以下载idea工程源码
 
 # 安装环境
 python3
